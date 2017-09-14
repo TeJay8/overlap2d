@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.util.Validators;
 import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.Spinner;
 import com.uwsoft.editor.Overlap2DFacade;
 import com.uwsoft.editor.event.*;
 import com.uwsoft.editor.view.ui.properties.UIItemCollapsibleProperties;
@@ -21,6 +23,7 @@ public class UILabelItemProperties extends UIItemCollapsibleProperties {
 
     public static final String LABEL_TEXT_CHAR_TYPED = prefix + ".LABEL_TEXT_CHANGED";
 
+    private IntSpinnerModel fontSize;
 
     private HashMap<Integer, String> alignNames = new HashMap<>();
 
@@ -30,7 +33,7 @@ public class UILabelItemProperties extends UIItemCollapsibleProperties {
     private VisSelectBox<String> alignSelectBox;
     private VisCheckBox boldCheckBox;
     private VisCheckBox italicCheckBox;
-    private NumberSelector fontSizeField;
+    private Spinner fontSizeField;
     private VisTextArea textArea;
 
     public UILabelItemProperties() {
@@ -38,12 +41,14 @@ public class UILabelItemProperties extends UIItemCollapsibleProperties {
 
         Validators.IntegerValidator intValidator = new Validators.IntegerValidator();
 
+        fontSize = new IntSpinnerModel(12, 0, 100);
+
         facade = Overlap2DFacade.getInstance();
         fontFamilySelectBox = new VisSelectBox<>();
         alignSelectBox = new VisSelectBox<>();
         boldCheckBox = new VisCheckBox(null);
         italicCheckBox = new VisCheckBox(null);
-        fontSizeField = new NumberSelector("", 12, 0, 100);
+        fontSizeField = new Spinner("", fontSize);
 
         fontFamilySelectBox.setMaxListCount(10);
         alignSelectBox.setMaxListCount(10);
@@ -147,11 +152,11 @@ public class UILabelItemProperties extends UIItemCollapsibleProperties {
     }
 
     public int getFontSize() {
-        return (int) fontSizeField.getValue();
+        return fontSize.getValue();
     }
 
     public void setFontSize(int fontSize) {
-        fontSizeField.setValue(fontSize);
+        this.fontSize.setValue(fontSize);
     }
 
     @Override

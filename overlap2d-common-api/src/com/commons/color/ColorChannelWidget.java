@@ -30,17 +30,17 @@ import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.Sizes;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.color.AlphaChannelBar;
-import com.kotcrab.vis.ui.widget.color.ChannelBar;
-import com.kotcrab.vis.ui.widget.color.ColorPickerStyle;
+import com.kotcrab.vis.ui.widget.color.ColorPickerWidgetStyle;
+import com.kotcrab.vis.ui.widget.color.internal.AlphaChannelBar;
+import com.kotcrab.vis.ui.widget.color.internal.ChannelBar;
+import com.kotcrab.vis.ui.widget.color.internal.PickerCommons;
 
 /**
  * Used to display one color channel (hue, saturation etc.) with label, ColorInputField and ChannelBar
  * @author Kotcrab
  */
 public class ColorChannelWidget extends VisTable implements Disposable {
-	private ColorPickerStyle style;
-	private Sizes sizes;
+	private PickerCommons commons;
 	private int value;
 	private int maxValue;
 	public ColorChannelWidgetListener drawer;
@@ -54,15 +54,14 @@ public class ColorChannelWidget extends VisTable implements Disposable {
 
     private ChangeListener barListener;
 
-	public ColorChannelWidget (ColorPickerStyle style, Sizes sizes, String label, int maxValue, final ColorChannelWidgetListener drawer) {
+	public ColorChannelWidget (ColorPickerWidgetStyle style, Sizes sizes, String label, int maxValue, final ColorChannelWidgetListener drawer) {
 		this(style, sizes, label, maxValue, false, drawer);
 	}
 
-	public ColorChannelWidget (ColorPickerStyle style, Sizes sizes, String label, int maxValue, boolean useAlpha, final ColorChannelWidgetListener drawer) {
+	public ColorChannelWidget (ColorPickerWidgetStyle style, Sizes sizes, String label, int maxValue, boolean useAlpha, final ColorChannelWidgetListener drawer) {
 		super(true);
 
-		this.style = style;
-		this.sizes = sizes;
+		this.commons = new PickerCommons(style, sizes, false);
 		this.value = 0;
 		this.maxValue = maxValue;
 		this.drawer = drawer;
@@ -99,8 +98,9 @@ public class ColorChannelWidget extends VisTable implements Disposable {
 
     @Override
     public void dispose () {
-        pixmap.dispose();
-        texture.dispose();
+		commons.dispose();
+		pixmap.dispose();
+		texture.dispose();
     }
 
     public void redraw () {
@@ -120,9 +120,9 @@ public class ColorChannelWidget extends VisTable implements Disposable {
 
 	private ChannelBar createBarImage () {
 		if (useAlpha)
-			return new AlphaChannelBar(style, sizes, texture, value, maxValue, barListener);
+			return new AlphaChannelBar(commons, value, maxValue, barListener);
 		else
-			return new ChannelBar(style, sizes, texture, value, maxValue, barListener);
+			return new ChannelBar(commons, value, maxValue, barListener);
 	}
 
     public boolean isInputValid () {

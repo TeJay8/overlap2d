@@ -23,12 +23,13 @@ import java.util.Map;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.widget.NumberSelector;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.Spinner;
 import com.uwsoft.editor.Overlap2DFacade;
 import com.commons.UIDraggablePanel;
 import com.uwsoft.editor.renderer.data.FrameRange;
@@ -44,9 +45,12 @@ public class EditSpriteAnimationDialog extends UIDraggablePanel {
 
     private Overlap2DFacade facade;
 
+    private IntSpinnerModel fromFrame;
+    private IntSpinnerModel toFrame;
+
     private VisTextField nameField;
-    private NumberSelector fromFrameField;
-    private NumberSelector toFrameField;
+    private Spinner fromFrameField;
+    private Spinner toFrameField;
     private VisTextButton addButton;
 
     private VisTable animationsList;
@@ -78,6 +82,8 @@ public class EditSpriteAnimationDialog extends UIDraggablePanel {
         nameField = StandardWidgetsFactory.createTextField();
         fromFrameField = StandardWidgetsFactory.createNumberSelector(0, 100);
         toFrameField = StandardWidgetsFactory.createNumberSelector(0, 100);
+        fromFrame = (IntSpinnerModel) fromFrameField.getModel();
+        toFrame = (IntSpinnerModel) toFrameField.getModel();
         addButton = new VisTextButton("Add");
 
         newAnimationTable.add(nameField).width(120);
@@ -144,11 +150,11 @@ public class EditSpriteAnimationDialog extends UIDraggablePanel {
     }
 
     public int getFrameFrom() {
-        return (int) fromFrameField.getValue();
+        return fromFrame.getValue();
     }
 
     public int getFrameTo() {
-        return (int) toFrameField.getValue();
+        return toFrame.getValue();
     }
 
 
@@ -157,11 +163,11 @@ public class EditSpriteAnimationDialog extends UIDraggablePanel {
     }
 
     public void setFrameFrom(int from) {
-        fromFrameField.setValue(from);
+        fromFrame.setValue(from);
     }
 
     public void setFrameTo(int to) {
-        toFrameField.setValue(to);
+        toFrame.setValue(to);
     }
 
 }
