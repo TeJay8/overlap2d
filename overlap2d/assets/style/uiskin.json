@@ -216,12 +216,16 @@
     "default-horizontal": {
       "background": "slider",
       "knob": "slider-knob",
-      "disabledKnob": "slider-knob-disabled"
+      "disabledKnob": "slider-knob-disabled",
+      "knobOver": "slider-knob-over",
+      "knobDown": "slider-knob-down"
     },
     "default-vertical": {
       "background": "slider-vertical",
       "knob": "slider-knob",
-      "disabledKnob": "slider-knob-disabled"
+      "disabledKnob": "slider-knob-disabled",
+      "knobOver": "slider-knob-over",
+      "knobDown": "slider-knob-down"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
@@ -587,46 +591,27 @@
       "imageCheckedOver": "icon-unlink-active"
     }
   },
-  "com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle": {
-    "default-horizontal": {
-      "background": "slider",
-      "knob": "slider-knob",
-      "disabledKnob": "slider-knob-disabled",
-      "knobOver": "slider-knob-over",
-      "knobDown": "slider-knob-down"
-    },
-    "default-vertical": {
-      "background": "slider-vertical",
-      "knob": "slider-knob",
-      "disabledKnob": "slider-knob-disabled",
-      "knobOver": "slider-knob-over",
-      "knobDown": "slider-knob-down"
-    }
-  },
   "com.kotcrab.vis.ui.widget.VisCheckBox$VisCheckBoxStyle": {
     "default": {
-      "checkboxOn": "check-on",
-      "checkboxOff": "check-off",
-      "checkboxOver": "check-over-off",
-      "checkboxOnOver": "check-over-on",
-      "checkboxOffDown": "check-down",
-      "checkboxOnDown": "check-down-on",
-      "checkboxOffDisabled": "check-off",
-      "checkboxOnDisabled": "check-on-disabled",
+      "tick": "check-on",
+      "checkBackground": "check-off",
+      "checkBackgroundOver": "check-over-off",
+      "checkBackgroundDown": "check-down",
+      "tickDisabled": "check-on-disabled",
       "focusBorder": "border",
+      "errorBorder": "border-error",
       "font": "default-font",
       "fontColor": "white",
       "disabledFontColor": "grey"
     },
     "radio": {
-      "checkboxOn": "radio-on",
-      "checkboxOff": "radio-off",
-      "checkboxOver": "radio-over-off",
-      "checkboxOnOver": "radio-over-on",
-      "checkboxOffDown": "radio-down",
-      "checkboxOnDown": "radio-down-on",
-      "checkboxOffDisabled": "radio-off",
-      "checkboxOnDisabled": "radio-on-disabled",
+      "tick": "radio-on",
+      "checkBackground": "radio-off",
+      "checkBackgroundOver": "radio-over-off",
+      "checkBackgroundDown": "radio-down",
+      "tickDisabled": "radio-on-disabled",
+      "focusBorder": "border-circle",
+      "errorBorder": "border-circle",
       "font": "default-font",
       "fontColor": "white",
       "disabledFontColor": "grey"
@@ -648,8 +633,7 @@
     },
     "vertical": {
       "background": "separator-vertical",
-      "thickness": 2,
-      "vertical": true
+      "thickness": 2
     },
     "menu": {
       "background": "separator-menu",
@@ -678,7 +662,7 @@
       "subMenu": "sub-menu"
     }
   },
-  "com.kotcrab.vis.ui.widget.NumberSelector$NumberSelectorStyle": {
+  "com.kotcrab.vis.ui.widget.spinner.Spinner$SpinnerStyle": {
     "default": {
       "down": "select-down",
       "up": "select-up"
@@ -690,9 +674,8 @@
       "spacingBottom": 8,
       "spacingRight": 6,
       "menuItemIconSize": 22,
-      "numberSelectorButtonSize": 12,
-      "numberSelectorButtonsWidth": 12,
-      "numberSelectorFieldSize": 40
+      "spinnerButtonHeight": 12,
+      "spinnerFieldSize": 40
     }
   },
   "com.kotcrab.vis.ui.widget.Tooltip$TooltipStyle": {
@@ -704,7 +687,7 @@
   "com.kotcrab.vis.ui.widget.file.FileChooserStyle": {
       "default": {
         "highlight": "list-selection",
-        "popupMenuStyleName": "default",
+        "popupMenuStyle": "default",
         "iconArrowLeft": "icon-arrow-left",
         "iconArrowRight": "icon-arrow-right",
         "iconFolder": "icon-folder",
@@ -719,27 +702,43 @@
         "iconFileAudio": "icon-label"
       }
     },
-  "com.kotcrab.vis.ui.widget.color.ColorPickerStyle": {
+  "com.kotcrab.vis.ui.widget.color.ColorPickerWidgetStyle": {
     "default": {
-      "white": "white",
-      "alphaBar10px": "alpha-bar-10px",
-      "alphaBar25px": "alpha-bar-25px",
       "barSelector": "color-picker-bar-selector",
       "cross": "color-picker-cross",
+      "iconArrowRight": "icon-arrow-right",
       "verticalSelector": "color-picker-selector-vertical",
       "horizontalSelector": "color-picker-selector-horizontal"
     }
   },
+  "com.kotcrab.vis.ui.widget.color.ColorPickerStyle": {
+    "default": {
+      "pickerStyle": "default",
+      "titleFont": "default-font",
+      "background": "window",
+      "titleFontColor": "white"
+    }
+  },
   "com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane$TabbedPaneStyle": {
     "default": {
-      //"background": "menu-bg",
-      //"bottomBar": "list-selection",
       "buttonStyle": {
         "up": "tab-inactive",
         "checked": "tab-active",
         "font": "default-font",
         "fontColor": "white"
       }
+    }
+  },
+  "com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle": {
+    "default": {
+      "segment": "logo",
+      "segmentOverflow": 1,
+      "height": 23
+    }
+  },
+  "com.kotcrab.vis.ui.widget.ListViewStyle": {
+    "default": {
+      "scrollPaneStyle": "default"
     }
   }
 }

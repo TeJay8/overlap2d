@@ -30,15 +30,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.kotcrab.vis.ui.Locales;
 import com.kotcrab.vis.ui.Sizes;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.util.ColorUtils;
 import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldFilter;
-import com.kotcrab.vis.ui.widget.color.AlphaImage;
-import com.kotcrab.vis.ui.widget.color.ColorPickerStyle;
-import com.kotcrab.vis.ui.widget.color.Palette;
-import com.kotcrab.vis.ui.widget.color.VerticalChannelBar;
+import com.kotcrab.vis.ui.widget.color.ColorPickerWidgetStyle;
+import com.kotcrab.vis.ui.widget.color.internal.AlphaImage;
+import com.kotcrab.vis.ui.widget.color.internal.Palette;
+import com.kotcrab.vis.ui.widget.color.internal.PickerCommons;
+import com.kotcrab.vis.ui.widget.color.internal.VerticalChannelBar;
 
 import static com.commons.color.ColorPickerText.*;
 
@@ -62,8 +64,9 @@ public class CustomColorPicker extends VisWindow implements Disposable {
 	static final int BAR_HEIGHT = 11;
 	static final float VERTICAL_BAR_WIDTH = 15;
 
-	private ColorPickerStyle style;
+	private ColorPickerWidgetStyle style;
 	private Sizes sizes;
+	private PickerCommons commons;
 	private I18NBundle bundle;
 
     private ColorPickerListener listener;
@@ -122,9 +125,10 @@ public class CustomColorPicker extends VisWindow implements Disposable {
 	public CustomColorPicker (String styleName, String title, ColorPickerListener listener) {
 		super(title != null ? title : "");
 		this.listener = listener;
-		this.style = VisUI.getSkin().get(styleName, ColorPickerStyle.class);
+		this.style = VisUI.getSkin().get(styleName, ColorPickerWidgetStyle.class);
 		this.sizes = VisUI.getSizes();
-		this.bundle = VisUI.getColorPickerBundle();
+		this.commons = new PickerCommons(style, sizes, false);
+		this.bundle = Locales.getColorPickerBundle();
 
 		if (title == null) getTitleLabel().setText(getText(TITLE));
 
@@ -203,10 +207,10 @@ public class CustomColorPicker extends VisWindow implements Disposable {
 	private VisTable createColorsPreviewTable () {
 		VisTable table = new VisTable(false);
 		table.add(new VisLabel(getText(OLD))).spaceRight(3);
-		table.add(currentColor = new AlphaImage(style)).height(25 * sizes.scaleFactor).expandX().fillX();
+		table.add(currentColor = new AlphaImage(commons, sizes.scaleFactor)).height(25 * sizes.scaleFactor).expandX().fillX();
 		table.row();
 		table.add(new VisLabel(getText(NEW))).spaceRight(3);
-		table.add(newColor = new AlphaImage(style, true)).height(25 * sizes.scaleFactor).expandX().fillX();
+		table.add(newColor = new AlphaImage(commons, sizes.scaleFactor)).height(25 * sizes.scaleFactor).expandX().fillX();
 
 		currentColor.setColor(color);
 		newColor.setColor(color);
@@ -261,7 +265,7 @@ public class CustomColorPicker extends VisWindow implements Disposable {
 
 		barTexture = new Texture(barPixmap);
 
-		palette = new Palette(style, sizes, paletteTexture, 0, 0, 100, new ChangeListener() {
+		palette = new Palette(commons, 100, new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				sBar.setValue(palette.getV());
@@ -272,7 +276,7 @@ public class CustomColorPicker extends VisWindow implements Disposable {
             }
         });
 
-		verticalBar = new VerticalChannelBar(style, sizes, barTexture, 0, 360, new ChangeListener() {
+		verticalBar = new VerticalChannelBar(commons, 360, new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				hBar.setValue(verticalBar.getValue());
@@ -500,6 +504,7 @@ public class CustomColorPicker extends VisWindow implements Disposable {
 
     @Override
     public void dispose () {
+		commons.dispose();
         paletteTexture.dispose();
         barTexture.dispose();
 

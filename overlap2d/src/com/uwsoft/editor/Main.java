@@ -82,7 +82,9 @@ public class Main {
             config.resizable = false;
             config.width = (int) (width);
             config.height = (int) (height - height * .04);
-            config.backgroundFPS = 0;
+            config.vSyncEnabled = false;
+            config.foregroundFPS = 30;
+            config.backgroundFPS = -1;
             mainFrame = new LwjglFrame(overlap2D, config);
             mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
             toggleVisible();

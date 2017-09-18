@@ -18,13 +18,20 @@
 
 package com.uwsoft.editor.event;
 
-import com.kotcrab.vis.ui.widget.NumberSelector;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.kotcrab.vis.ui.widget.spinner.ArraySpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.FloatSpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.SimpleFloatSpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.Spinner;
+import com.kotcrab.vis.ui.widget.spinner.SpinnerModel;
 import com.uwsoft.editor.Overlap2DFacade;
 
 /**
  * Created by azakhary on 6/12/2015.
  */
-public class NumberSelectorOverlapListener implements NumberSelector.NumberSelectorListener {
+public class NumberSelectorOverlapListener extends ChangeListener {
 
     private final String eventName;
 
@@ -33,6 +40,19 @@ public class NumberSelectorOverlapListener implements NumberSelector.NumberSelec
     }
 
     @Override
+    public void changed(ChangeEvent changeEvent, Actor actor) {
+        SpinnerModel model = ((Spinner) actor).getModel();
+
+        if (model instanceof IntSpinnerModel)
+            changed(((IntSpinnerModel) model).getValue());
+        else if (model instanceof FloatSpinnerModel)
+            changed(((FloatSpinnerModel) model).getValue().floatValue());
+        else if (model instanceof SimpleFloatSpinnerModel)
+            changed(((SimpleFloatSpinnerModel) model).getValue());
+        else if (model instanceof ArraySpinnerModel)
+            changed(((ArraySpinnerModel) model).getCurrentIndex());
+    }
+
     public void changed(float number) {
         Overlap2DFacade facade = Overlap2DFacade.getInstance();
         facade.sendNotification(eventName, number);

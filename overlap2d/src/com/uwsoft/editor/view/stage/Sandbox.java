@@ -137,10 +137,11 @@ public class Sandbox {
         sceneLoader.injectExternalItemType(new SpineItemType());
         
         //Remove Physics System and add Adjusting System for box2d objects to follow items and stop world tick
-        sceneLoader.engine.removeSystem(sceneLoader.engine.getSystem(PhysicsSystem.class));
+        PhysicsSystem physicsSystem = sceneLoader.engine.getSystem(PhysicsSystem.class);
+        physicsSystem.setPhysicsOn(false);
+        sceneLoader.engine.removeSystem(physicsSystem);
         sceneLoader.engine.addSystem(new PhysicsAdjustSystem(sceneLoader.world));
-        sceneLoader.engine.getSystem(Overlap2dRenderer.class).setPhysicsOn(false);
-        
+
         sceneControl = new SceneControlMediator(sceneLoader);
         itemControl = new ItemControlMediator(sceneControl);
 
