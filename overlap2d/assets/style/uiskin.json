@@ -593,28 +593,25 @@
   },
   "com.kotcrab.vis.ui.widget.VisCheckBox$VisCheckBoxStyle": {
     "default": {
-      "up": "check-on",
-      "down": "check-off",
-      "over": "check-over-off",
-      "checkBackgroundOver": "check-over-on",
+      "tick": "check-on",
+      "checkBackground": "check-off",
+      "checkBackgroundOver": "check-over-off",
       "checkBackgroundDown": "check-down",
-      "checkBackground": "check-down-on",
-      "checked": "check-off",
-      "disabled": "check-on-disabled",
+      "tickDisabled": "check-on-disabled",
       "focusBorder": "border",
+      "errorBorder": "border-error",
       "font": "default-font",
       "fontColor": "white",
       "disabledFontColor": "grey"
     },
     "radio": {
-      "up": "radio-on",
-      "down": "radio-off",
-      "over": "radio-over-off",
-      "checkBackgroundOver": "radio-over-on",
+      "tick": "radio-on",
+      "checkBackground": "radio-off",
+      "checkBackgroundOver": "radio-over-off",
       "checkBackgroundDown": "radio-down",
-      "checkBackground": "radio-down-on",
-      "checked": "radio-off",
-      "disabled": "radio-on-disabled",
+      "tickDisabled": "radio-on-disabled",
+      "focusBorder": "border-circle",
+      "errorBorder": "border-circle",
       "font": "default-font",
       "fontColor": "white",
       "disabledFontColor": "grey"
@@ -709,13 +706,17 @@
     "default": {
       "barSelector": "color-picker-bar-selector",
       "cross": "color-picker-cross",
+      "iconArrowRight": "icon-arrow-right",
       "verticalSelector": "color-picker-selector-vertical",
       "horizontalSelector": "color-picker-selector-horizontal"
     }
   },
   "com.kotcrab.vis.ui.widget.color.ColorPickerStyle": {
     "default": {
-      "pickerStyle": "default"
+      "pickerStyle": "default",
+      "titleFont": "default-font",
+      "background": "window",
+      "titleFontColor": "white"
     }
   },
   "com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane$TabbedPaneStyle": {

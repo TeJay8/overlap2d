@@ -25,8 +25,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.commons.MsgAPI;
-import com.commons.color.ColorPickerAdapter;
-import com.commons.color.CustomColorPicker;
+import com.kotcrab.vis.ui.widget.color.ColorPicker;
+import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import com.puremvc.patterns.observer.Notification;
 import com.uwsoft.editor.Overlap2DFacade;
 import com.uwsoft.editor.controller.commands.AddComponentToItemCommand;
@@ -38,7 +38,6 @@ import com.uwsoft.editor.renderer.utils.ComponentRetriever;
 import com.uwsoft.editor.utils.runtime.ComponentCloner;
 import com.uwsoft.editor.utils.runtime.EntityUtils;
 import com.uwsoft.editor.view.stage.Sandbox;
-import com.uwsoft.editor.view.stage.SandboxMediator;
 import com.uwsoft.editor.view.ui.properties.UIItemPropertiesMediator;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -66,9 +65,6 @@ public class UIBasicItemPropertiesMediator extends UIItemPropertiesMediator<Enti
     public UIBasicItemPropertiesMediator() {
         super(NAME, new UIBasicItemProperties());
     }
-
-    Object object1;
-    Object object2;
 
     @Override
     public void onRegister() {
@@ -106,7 +102,7 @@ public class UIBasicItemPropertiesMediator extends UIItemPropertiesMediator<Enti
 
         switch (notification.getName()) {
             case UIBasicItemProperties.TINT_COLOR_BUTTON_CLICKED:
-                CustomColorPicker picker = new CustomColorPicker(new ColorPickerAdapter() {
+                ColorPicker picker = new ColorPicker( new ColorPickerAdapter() {
                     @Override
                     public void finished(Color newColor) {
                         viewComponent.setTintColor(newColor);
